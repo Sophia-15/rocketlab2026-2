@@ -71,6 +71,19 @@ A API mínima ficará disponível em `http://localhost:8000`; use
 `http://localhost:8000/docs` para a documentação automática. O endpoint
 `GET /health` permite conferir se a aplicação iniciou corretamente.
 
+## API do catalogo
+
+A Fase 2 do backend ja expõe os seguintes endpoints na versao `v1`:
+- `GET /api/v1/movies` para listagem paginada e busca;
+- `GET /api/v1/movies/{id}` para detalhe completo;
+- `POST /api/v1/movies` para cadastro;
+- `PUT /api/v1/movies/{id}` para atualização;
+- `DELETE /api/v1/movies/{id}` para remoção;
+- `POST /api/v1/reviews` para inserir novas avaliacoes.
+
+Os retornos incluem relacionamento com generos, produtoras, pessoas, performance,
+resumo de avaliacoes e lista de reviews quando aplicavel.
+
 ## Banco de dados e migrações
 
 O modelo usa um esquema estrela para o catálogo de filmes:
