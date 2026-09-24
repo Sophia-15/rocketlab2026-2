@@ -5,6 +5,10 @@ o modelo relacional do catálogo de filmes em SQLAlchemy 2.0 e o histórico de
 migrações com Alembic, sem incluir interface, dados CSV, endpoints de negócio
 ou rotinas de carga.
 
+Os CSVs usados no bootcamp foram organizados dentro do próprio repositório em
+`data/raw/`, separados em `bases-1/` e `bases-2/`, para facilitar o uso durante
+o desenvolvimento e a futura carga inicial.
+
 > **Nota:** `RocketLab` é apenas o nome de referência desta base. O diretório,
 > nome do pacote, título da API e arquivo do banco podem ser renomeados para o
 > que preferirem; eles não representam uma exigência da
@@ -22,6 +26,8 @@ ou rotinas de carga.
 │   │   └── movies/        # modelos SQLAlchemy do domínio de filmes
 │   ├── migrations/        # ambiente e revisões Alembic
 │   └── tests/
+├── data/
+│   └── raw/               # CSVs de apoio do bootcamp
 └── README.md
 ```
 
@@ -56,8 +62,9 @@ A tabela aceita diretamente as colunas `sk_movie_review_id`, `sk_movie_id`,
 `nome`, `nota` e `comentario` do CSV enviado separadamente. `created_at` é
 gerado pelo banco. O contexto generativo não faz parte desta base.
 
-O repositório não inclui CSVs nem rotinas de carga. Para usar avaliações,
-importe primeiro os filmes em `dim_movies` e depois o CSV de `movie_reviews`.
+Os CSVs de apoio ficam em `data/raw/`. A ordem esperada para futura carga é:
+primeiro os filmes em `dim_movies`, depois as tabelas auxiliares e por fim o
+CSV de `movie_reviews`.
 
 As tabelas são criadas exclusivamente pelo Alembic. Para evoluir os modelos,
 crie uma revisão e aplique-a:
