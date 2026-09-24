@@ -1,0 +1,48 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: rocketlab-backend
+    environment:
+      DATABASE_URL: sqlite+aiosqlite:////data/rocketlab.db
+      ENVIRONMENT: docker
+      BACKEND_CORS_ORIGINS: '["http://localhost:5173","http://127.0.0.1:5173"]'
+    ports:
+      - "8000:8000"
+    volumes:
+      - rocketlab-data:/data
+    restart: unless-stopped
+
+  seed:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: rocketlab-seed
+    environment:
+      DATABASE_URL: sqlite+aiosqlite:////data/rocketlab.db
+      ENVIRONMENT: docker
+      BACKEND_CORS_ORIGINS: '["http://localhost:5173","http://127.0.0.1:5173"]'
+    volumes:
+      - rocketlab-data:/data
+    command: >
+      sh -c "alembic upgrade head && python -m app.scripts.seed_catalog"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: rocketlab-frontend
+    profiles:
+      - frontend
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000/api/v1
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app/frontend
+    depends_on:
+      - backend
+
+volumes:
+  rocketlab-data:

@@ -41,7 +41,30 @@ python3 -m venv .venv
 .venv/bin/pip install -e ".[dev]"
 cp .env.example .env
 .venv/bin/alembic upgrade head
+.venv/bin/python -m app.scripts.seed_catalog
 .venv/bin/uvicorn app.main:app --reload
+```
+
+## Execução com Docker
+
+Para desenvolvimento multi-plataforma, o repositório já inclui:
+- `backend/Dockerfile` para a API FastAPI;
+- `frontend/Dockerfile` para a futura aplicação Vite;
+- `docker-compose.yml` para orquestração.
+
+Fluxo recomendado:
+
+```bash
+docker compose up --build backend
+docker compose run --rm seed
+```
+
+Depois disso a API fica disponível em `http://localhost:8000`.
+
+O serviço de frontend já está preparado no compose, mas só entra em uso quando a aplicação Vite for criada na próxima fase. Quando isso acontecer, basta habilitar o profile do frontend:
+
+```bash
+docker compose --profile frontend up --build
 ```
 
 A API mínima ficará disponível em `http://localhost:8000`; use
@@ -65,6 +88,9 @@ gerado pelo banco. O contexto generativo não faz parte desta base.
 Os CSVs de apoio ficam em `data/raw/`. A ordem esperada para futura carga é:
 primeiro os filmes em `dim_movies`, depois as tabelas auxiliares e por fim o
 CSV de `movie_reviews`.
+
+Para refazer a carga inicial em um banco limpo, execute o script de seed
+novamente. Ele limpa as tabelas antes de importar os arquivos por padrão.
 
 As tabelas são criadas exclusivamente pelo Alembic. Para evoluir os modelos,
 crie uma revisão e aplique-a:
