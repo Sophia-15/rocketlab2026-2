@@ -22,6 +22,7 @@ O projeto está dividido em duas partes: a API (Backend) e a Interface (Frontend
 ### 1. Configurando e Executando o Backend
 
 1. Entre na pasta do backend:
+   ´´´bash
    cd backend
 
 2. Crie e ative um ambiente virtual Python:
