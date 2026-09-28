@@ -8,7 +8,7 @@ Sistema completo de catálogo e avaliação de filmes desenvolvido como parte do
 
 * **Backend:** Python, FastAPI, SQLAlchemy (Async), SQLite.
 * **Frontend:** React, TypeScript, Vite, Tailwind CSS, React Router DOM.
-* **Banco de Dados:** Database Client (extensão do VSCode para gerenciamento e visualização de banco de dados em tabelas; também serve para importação de arquivos CSV e alimentação de tabelas) 
+* **Banco de Dados (opcional):** Database Client (extensão do VSCode para gerenciamento e visualização de banco de dados em tabelas; também serve para importação de arquivos CSV e alimentação de tabelas) 
 
 ---
 
